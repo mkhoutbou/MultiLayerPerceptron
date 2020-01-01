@@ -23,12 +23,23 @@ public class Couche  {
         return type;
     }
 
+    public void initialiserPoids(){
+        if (!type.equals(OUTPUT_LAYER)){
+            for (int i = 0; i < nbNeurone; i++) {
+                neurones.add(new Neurone(i,this));
+            }
+        }
+    }
     public void setType(String type) {
         this.type = type;
     }
 
     public int getNbNeurone() {
         return nbNeurone;
+    }
+
+    public void setNbNeurone(int nbNeurone) {
+        this.nbNeurone = nbNeurone;
     }
 
     public Couche getNext(){
