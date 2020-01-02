@@ -16,7 +16,6 @@ public class Neurone {
         this.couche = couche;
         poids = new ArrayList<>();
         sommeDesJeNeSaisPas = new ArrayList<>();
-        initialiserPoids();
     }
 
     public List<Double> getPoids() {
@@ -38,7 +37,11 @@ public class Neurone {
         }
     }
 
-
+    public void initialiserSommeDesJeNeSaisPas(){
+        for (int i = 0; i < couche.getPrevious().getNbNeurone(); i++) {
+            sommeDesJeNeSaisPas.add(0.0);
+        }
+    }
     public void forward(){
         Couche previousLayer = couche.getPrevious();
         double a = 0;
@@ -55,7 +58,7 @@ public class Neurone {
 
     public void calculerGradientETsommeDesJeNeSaisPas(){
         if (couche.getType().equals(Couche.OUTPUT_LAYER)){
-            gradient = (Reseau.outputData.get(indice) - sortie) * sortie * (1 - sortie);
+            gradient = Reseau.errors.get(indice) * sortie * (1 - sortie);
         }
         else {
             double somme = 0;

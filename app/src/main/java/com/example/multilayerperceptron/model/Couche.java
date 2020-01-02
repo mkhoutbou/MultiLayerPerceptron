@@ -7,39 +7,49 @@ public class Couche  {
     public static final String HIDDEN_LAYER = "hidden";
     public static final String INPUT_LAYER = "input";
     public static final String OUTPUT_LAYER = "output";
-    private String type;
+    private String type = HIDDEN_LAYER;
     private List<Neurone> neurones;
     private int nbNeurone;
     private int indice;
     private Reseau reseau;
 
-    public Couche(int taille,Reseau reseau) {
+    public Couche(Reseau reseau,int indice) {
         this.reseau = reseau;
-        this.nbNeurone = taille;
+        this.indice = indice;
         neurones = new ArrayList<>();
     }
+
+
 
     public String getType() {
         return type;
     }
 
-    public void initialiserPoids(){
-        if (!type.equals(OUTPUT_LAYER)){
-            for (int i = 0; i < nbNeurone; i++) {
-                neurones.add(new Neurone(i,this));
+    public void init(){
+        Neurone neurone ;
+        for (int i = 0; i < nbNeurone; i++) {
+            neurone = new Neurone(i,this);
+            if (!type.equals(OUTPUT_LAYER)){
+                neurone.initialiserPoids();
             }
+            if (!type.equals(INPUT_LAYER)) neurone.initialiserSommeDesJeNeSaisPas();
+            neurones.add(neurone);
         }
+
     }
-    public void setType(String type) {
+
+    public Couche setType(String type) {
         this.type = type;
+        return this;
     }
 
     public int getNbNeurone() {
         return nbNeurone;
     }
 
-    public void setNbNeurone(int nbNeurone) {
+    public Couche setNbNeurone(int nbNeurone) {
         this.nbNeurone = nbNeurone;
+        return this;
     }
 
     public Couche getNext(){
@@ -49,8 +59,8 @@ public class Couche  {
         return reseau.getCouche(indice - 1);
     }
 
-    public Neurone getNeurone(int indice) {
-        return neurones.get(indice);
+    public Neurone getNeurone(int i) {
+        return neurones.get(i);
     }
     public void forward(){
         if (!type.equals(INPUT_LAYER)){

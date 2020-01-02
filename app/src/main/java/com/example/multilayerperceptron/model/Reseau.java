@@ -8,19 +8,32 @@ public class Reseau {
     public static double MI = 0;
     private List<Couche> couches;
     private List<Double> inputData;
-    public static List<Double> outputData;
+    private List<Double> outputData;
+    public static List<Double> errors;
     private int nbCouche;
 
     public Reseau(int nbCouche) {
         this.nbCouche = nbCouche;
+        errors = new ArrayList<>();
         couches = new ArrayList<>();
-        inputData = new ArrayList<>();
-        outputData = new ArrayList<>();
+        for (int i = 0; i < nbCouche; i++) {
+            couches.add(new Couche(this,i));
+        }
     }
 
-    public void initialiserPoids(){
+    public void init(){
         for (int i = 0; i < nbCouche; i++) {
-            couches.get(i).initialiserPoids();
+            couches.get(i).init();
+        }
+        for (int i = 0; i < getOutputLayer().getNbNeurone(); i++) {
+            errors.add(0.0);
+        }
+    }
+
+    private void calculateError(){
+        Couche outPutLayer = getOutputLayer();
+        for (int i = 0; i < outPutLayer.getNbNeurone(); i++) {
+            errors.set(i,outputData.get(i) - outPutLayer.getNeurone(i).getSortie());
         }
     }
 
@@ -33,15 +46,17 @@ public class Reseau {
         return couches.get(i);
     }
 
-    private void forward(){
+    public void forward(){
         Couche inputLayer = getInputLayer();
         for (int i = 0; i < inputLayer.getNbNeurone(); i++) {
             inputLayer.getNeurone(i).setSortie(inputData.get(i));
         }
+        N++;
         inputLayer.forward();
     }
 
-    private void backward(){
+    public void backward(){
+        calculateError();
         getOutputLayer().backward();
     }
 
