@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         DataXY trainingData = Model.getModel(this).getTrainingData();
         trainingData.init(R.raw.diagnosis,6,2);
-        Reseau reseau = new Reseau(2);
-        Reseau.MI = 0.5;
-        reseau.getCouche(0).setNbNeurone(6).setType(Couche.INPUT_LAYER);
-        //reseau.getCouche(1).setNbNeurone(5);
-        reseau.getCouche(1).setNbNeurone(2).setType(Couche.OUTPUT_LAYER);
+        Reseau reseau = new Reseau(3);
+        Reseau.MI = 1;
+        reseau.getCouche(0).setNbNeurone(2).setType(Couche.INPUT_LAYER);
+        reseau.getCouche(1).setNbNeurone(2);
+        reseau.getCouche(2).setNbNeurone(1).setType(Couche.OUTPUT_LAYER);
         reseau.init();
         Perceptron perceptron = new Perceptron();
         perceptron.setReseau(reseau);

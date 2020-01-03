@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Reseau {
     public static int N = 0;
-    public static double MI = 0;
+    public static double MI = 0.0;
+    public static double alphat = 0.0;
     private List<Couche> couches;
     private List<Double> inputData;
     private List<Double> outputData;

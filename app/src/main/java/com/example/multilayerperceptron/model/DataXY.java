@@ -19,10 +19,44 @@ public class DataXY{
     private XY xy;
     private int sizeOfX;
     private int sizeOfY;
+    private int position = -1;
+    private List<XY> xor;
 
     public DataXY(Context context){
         this.context = context;
+        xor = new ArrayList<>();
         xy = new XY();
+        List<Double> x = new ArrayList<>();
+        List<Double> y = new ArrayList<>();
+        xy = new XY();
+        x.add(0.05);
+        x.add(0.05);
+        y.add(0.05);
+        xy.setX(x);
+        xy.setY(y);
+        xor.add(xy);
+        xy = new XY();
+        x.add(0.05);
+        x.add(0.95);
+        y.add(0.95);
+        xy.setX(x);
+        xy.setY(y);
+        xor.add(xy);
+        xy = new XY();
+        x.add(0.95);
+        x.add(0.95);
+        y.add(0.05);
+        xy.setX(x);
+        xy.setY(y);
+        xor.add(xy);
+        xy = new XY();
+        x.add(0.95);
+        x.add(0.05);
+        y.add(0.95);
+        xy.setX(x);
+        xy.setY(y);
+        xor.add(xy);
+
     }
 
     public void init(int fileResource,int sizeOfX,int sizeOfY){
@@ -33,7 +67,7 @@ public class DataXY{
         reader = new BufferedReader(file);
     }
     public boolean hasNext() {
-        String line = null;
+       /* String line = null;
         try {
             if ((line = reader.readLine()) == null) return false;
         } catch (IOException e) {
@@ -54,10 +88,14 @@ public class DataXY{
         }
         xy.setX(x);
         xy.setY(y);
-        return true;
+        return true;*/
+       position++;
+       return (position<4);
     }
 
     public XY getNext(){
-        return xy;
+        //return xy;
+        return xor.get(position);
+
     }
 }
