@@ -19,7 +19,7 @@ public class Reseau {
         this.nbCouche = nbCouche;
         errors = new ArrayList<>();
         couches = new ArrayList<>();
-        errorSeries = new DataPoint[130];
+        errorSeries = new DataPoint[120];
         for (int i = 0; i < nbCouche; i++) {
             couches.add(new Couche(this,i));
         }
@@ -61,7 +61,7 @@ public class Reseau {
 
     public void backward(){
         calculateError();
-        errorSeries[N]= new DataPoint(N,errors.get(0));
+        errorSeries[N-1]= new DataPoint(N,(errors.get(0) + errors.get(1))/2);
         getOutputLayer().backward();
     }
 

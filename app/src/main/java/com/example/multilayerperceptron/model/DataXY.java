@@ -20,13 +20,13 @@ public class DataXY{
     private int sizeOfX;
     private int sizeOfY;
     private int position = -1;
-    private List<XY> xor;
+    //private List<XY> xor;
 
     public DataXY(Context context){
         this.context = context;
-        xor = new ArrayList<>();
         xy = new XY();
-        List<Double> x = new ArrayList<>();
+        /*List<Double> x = new ArrayList<>();
+        xor = new ArrayList<>();
         List<Double> y = new ArrayList<>();
         xy = new XY();
         x.add(0.05);
@@ -55,7 +55,7 @@ public class DataXY{
         y.add(0.95);
         xy.setX(x);
         xy.setY(y);
-        xor.add(xy);
+        xor.add(xy);*/
 
     }
 
@@ -67,7 +67,7 @@ public class DataXY{
         reader = new BufferedReader(file);
     }
     public boolean hasNext() {
-       /* String line = null;
+        String line = null;
         try {
             if ((line = reader.readLine()) == null) return false;
         } catch (IOException e) {
@@ -88,14 +88,14 @@ public class DataXY{
         }
         xy.setX(x);
         xy.setY(y);
-        return true;*/
-       position++;
-       return (position<4);
+        return true;
+       /*position++;
+       return (position<4);*/
     }
 
     public XY getNext(){
-        //return xy;
-        return xor.get(position);
+        return xy;
+        //return xor.get(position);
 
     }
 }
