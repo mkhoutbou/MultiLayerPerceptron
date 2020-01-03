@@ -3,12 +3,17 @@ package com.example.multilayerperceptron;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Toast;
 
-import com.example.multilayerperceptron.model.Couche;
+import com.example.multilayerperceptron.Perceptron.Couche;
+import com.example.multilayerperceptron.Perceptron.Perceptron;
 import com.example.multilayerperceptron.model.DataXY;
 import com.example.multilayerperceptron.model.Model;
-import com.example.multilayerperceptron.model.Reseau;
+import com.example.multilayerperceptron.Perceptron.Reseau;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,16 +23,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataXY data = Model.getModel(this).gettrainingData();
-        data.init(R.raw.diagnosis,6,2);
+        DataXY trainingData = Model.getModel(this).getTrainingData();
+        trainingData.init(R.raw.diagnosis,6,2);
         Reseau reseau = new Reseau(2);
         Reseau.MI = 0.5;
         reseau.getCouche(0).setNbNeurone(6).setType(Couche.INPUT_LAYER);
+        //reseau.getCouche(1).setNbNeurone(5);
         reseau.getCouche(1).setNbNeurone(2).setType(Couche.OUTPUT_LAYER);
         reseau.init();
         Perceptron perceptron = new Perceptron();
         perceptron.setReseau(reseau);
-        perceptron.learn(Model.getModel(this).gettrainingData());
-        TextView textView = findViewById(R.id.parent);
+        perceptron.learn(trainingData);
+
+        GraphView graphView = findViewById(R.id.graph);
+        graphView.setVisibility(View.VISIBLE);
+        DataPoint[] errorSeries = reseau.getErrorSeries();
+        /*LineGraphSeries<DataPoint> series = new LineGraphSeries<>(errorSeries);
+        try {
+            graphView.addSeries(series);
+        }catch (IllegalArgumentException e){
+            Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+        }finally {
+
+        }*/
+        //TextView textView = findViewById(R.id.parent);
     }
 }

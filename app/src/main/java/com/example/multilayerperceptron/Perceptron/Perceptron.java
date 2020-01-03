@@ -1,9 +1,8 @@
-package com.example.multilayerperceptron;
+package com.example.multilayerperceptron.Perceptron;
 
 import android.util.Log;
 
 import com.example.multilayerperceptron.model.DataXY;
-import com.example.multilayerperceptron.model.Reseau;
 import com.example.multilayerperceptron.model.XY;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;

@@ -1,4 +1,4 @@
-package com.example.multilayerperceptron.model;
+package com.example.multilayerperceptron.Perceptron;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,12 +27,21 @@ public class Couche  {
 
     public void init(){
         Neurone neurone ;
-        for (int i = 0; i < nbNeurone; i++) {
+        int i;
+
+        for (i = 0; i < nbNeurone; i++) {
             neurone = new Neurone(i,this);
             if (!type.equals(OUTPUT_LAYER)){
                 neurone.initialiserPoids();
             }
             if (!type.equals(INPUT_LAYER)) neurone.initialiserSommeDesJeNeSaisPas();
+            neurones.add(neurone);
+        }
+
+        if (!type.equals(OUTPUT_LAYER)){
+            neurone = new Neurone(nbNeurone,this);
+            neurone.setSortie(1.0);
+            neurone.initialiserPoids();
             neurones.add(neurone);
         }
 
@@ -73,7 +82,7 @@ public class Couche  {
 
     public void backward(){
         if (!getType().equals(INPUT_LAYER)){
-            for (int i = 0; i < nbNeurone; i++) {
+            for (int i = 0; i < nbNeurone ; i++) {
                 neurones.get(i).backward();
             }
             getPrevious().backward();

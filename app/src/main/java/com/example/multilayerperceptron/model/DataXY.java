@@ -42,9 +42,13 @@ public class DataXY{
         String[] row = line.split("\\s+");
         List<Double> x = new ArrayList<>();
         List<Double> y = new ArrayList<>();
-        for (int i = 0; i < sizeOfX; i++) {
+        double temperature = Double.parseDouble(row[0]);
+        temperature = Math.cos(temperature/2);
+        x.add(temperature);
+        for (int i = 1; i < sizeOfX; i++) {
             x.add(Double.parseDouble(row[i]));
         }
+        x.add(1.0);
         for (int i = sizeOfX; i < sizeOfY + sizeOfX; i++) {
             y.add(Double.parseDouble(row[i]));
         }

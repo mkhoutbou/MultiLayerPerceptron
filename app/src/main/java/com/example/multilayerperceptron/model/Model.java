@@ -26,7 +26,7 @@ public class Model {
         return model;
     }
 
-    public DataXY gettrainingData(){
+    public DataXY getTrainingData(){
         return trainingData;
     }
 

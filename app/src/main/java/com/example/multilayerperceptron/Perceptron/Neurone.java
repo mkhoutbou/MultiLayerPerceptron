@@ -1,4 +1,4 @@
-package com.example.multilayerperceptron.model;
+package com.example.multilayerperceptron.Perceptron;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,14 +38,14 @@ public class Neurone {
     }
 
     public void initialiserSommeDesJeNeSaisPas(){
-        for (int i = 0; i < couche.getPrevious().getNbNeurone(); i++) {
+        for (int i = 0; i < couche.getPrevious().getNbNeurone() + 1; i++) {
             sommeDesJeNeSaisPas.add(0.0);
         }
     }
     public void forward(){
         Couche previousLayer = couche.getPrevious();
-        double a = 0;
-        for (int i = 0; i < previousLayer.getNbNeurone(); i++) {
+        double a = 0.0;
+        for (int i = 0; i < previousLayer.getNbNeurone()+1; i++) {
             Neurone neurone = previousLayer.getNeurone(i);
             a += neurone.getSortie()*neurone.getPoids().get(indice);
         }
@@ -71,7 +71,7 @@ public class Neurone {
         }
 
         Couche previousLayer = couche.getPrevious();
-        for (int i = 0; i < previousLayer.getNbNeurone(); i++) {
+        for (int i = 0; i < previousLayer.getNbNeurone() + 1; i++) {
             double sommeDes = sommeDesJeNeSaisPas.get(i)  +  gradient*previousLayer.getNeurone(i).getSortie();
             sommeDesJeNeSaisPas.set(i,sommeDes);
         }
@@ -81,7 +81,7 @@ public class Neurone {
         if (!couche.getType().equals(Couche.INPUT_LAYER)){
             calculerGradientETsommeDesJeNeSaisPas();
             Couche previousLayer = couche.getPrevious();
-            for (int i = 0; i < previousLayer.getNbNeurone(); i++) {
+            for (int i = 0; i < previousLayer.getNbNeurone() + 1; i++) {
                 Neurone neurone = previousLayer.getNeurone(i);
                 double poids = neurone.getPoids().get(indice) + Reseau.MI*sommeDesJeNeSaisPas.get(i)/Reseau.N;
                 neurone.getPoids().set(indice,poids);

@@ -1,14 +1,16 @@
-package com.example.multilayerperceptron.model;
+package com.example.multilayerperceptron.Perceptron;
 
+import com.jjoe64.graphview.series.DataPoint;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Reseau {
-    public static double N = 0;
+    public static int N = 0;
     public static double MI = 0;
     private List<Couche> couches;
     private List<Double> inputData;
     private List<Double> outputData;
+    private DataPoint[] errorSeries;
     public static List<Double> errors;
     private int nbCouche;
 
@@ -16,6 +18,7 @@ public class Reseau {
         this.nbCouche = nbCouche;
         errors = new ArrayList<>();
         couches = new ArrayList<>();
+        errorSeries = new DataPoint[130];
         for (int i = 0; i < nbCouche; i++) {
             couches.add(new Couche(this,i));
         }
@@ -57,6 +60,7 @@ public class Reseau {
 
     public void backward(){
         calculateError();
+        errorSeries[N]= new DataPoint(N,errors.get(0));
         getOutputLayer().backward();
     }
 
@@ -76,4 +80,7 @@ public class Reseau {
         this.outputData = outputData;
     }
 
+    public DataPoint[] getErrorSeries() {
+        return errorSeries;
+    }
 }
